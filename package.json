@@ -118,7 +118,7 @@
     "@segment/analytics.js-integration-webengage": "git+https://github.com/segment-integrations/analytics.js-integration-webengage.git",
     "@segment/analytics.js-integration-woopra": "git+https://github.com/segment-integrations/analytics.js-integration-woopra.git",
     "@segment/analytics.js-integration-wootric": "git+https://github.com/segment-integrations/analytics.js-integration-wootric.git",
-    "analytics.js-integration-sriracha": "git+https://github.com/rae89/analytics.js-integration-sriracha.git",
+    "analytics.js-integration-sriracha": "git+https://github.com/Fullscreen/analytics.js-integration-sriracha.git",
     "@segment/analytics.js-integration-yandex-metrica": "git+https://github.com/segment-integrations/analytics.js-integration-yandex-metrica.git"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.analytics = f()}})(function(){var define,module,exports;return (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.sriracha = f()}})(function(){var define,module,exports;return (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 'use strict';
 /**
  * Analytics.js
@@ -3152,30 +3152,35 @@ module.exports.User = User;
 
 },{"./cookie":21,"./entity":22,"bind-all":596,"component-cookie":599,"debug":611,"inherits":619,"uuid":673}],30:[function(require,module,exports){
 module.exports={
-  "_from": "@segment/analytics.js-core@^3.0.0",
+  "_args": [
+    [
+      "@segment/analytics.js-core@3.4.0",
+      "/Users/REspinoza/Projects/sriracha-projects/repos/sriracha.js"
+    ]
+  ],
+  "_from": "@segment/analytics.js-core@3.4.0",
   "_id": "@segment/analytics.js-core@3.4.0",
   "_inBundle": false,
   "_integrity": "sha1-0n6/+YjNcpKQVesZt5PNpH6NGFk=",
   "_location": "/@segment/analytics.js-core",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "@segment/analytics.js-core@^3.0.0",
+    "raw": "@segment/analytics.js-core@3.4.0",
     "name": "@segment/analytics.js-core",
     "escapedName": "@segment%2fanalytics.js-core",
     "scope": "@segment",
-    "rawSpec": "^3.0.0",
+    "rawSpec": "3.4.0",
     "saveSpec": null,
-    "fetchSpec": "^3.0.0"
+    "fetchSpec": "3.4.0"
   },
   "_requiredBy": [
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/@segment/analytics.js-core/-/analytics.js-core-3.4.0.tgz",
-  "_shasum": "d27ebff988cd72929055eb19b793cda47e8d1859",
-  "_spec": "@segment/analytics.js-core@^3.0.0",
-  "_where": "/Users/REspinoza/.Trash/sriracha 15-16-58-505.js",
+  "_spec": "3.4.0",
+  "_where": "/Users/REspinoza/Projects/sriracha-projects/repos/sriracha.js",
   "author": {
     "name": "Segment",
     "email": "friends@segment.com"
@@ -3183,7 +3188,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/segmentio/analytics.js-core/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "@ndhoule/after": "^1.0.0",
     "@ndhoule/clone": "^1.0.0",
@@ -3220,7 +3224,6 @@ module.exports={
     "segmentio-facade": "^3.0.2",
     "uuid": "^2.0.2"
   },
-  "deprecated": false,
   "description": "The hassle-free way to integrate analytics into any web application.",
   "devDependencies": {
     "@segment/analytics.js-integration": "^3.2.1",
@@ -3568,32 +3571,62 @@ AdWords.prototype.track = function(track) {
   var revenue = track.revenue() || 0;
 
   eventMappings.forEach(function(mapping) {
-    if (mapping.value.eventName.toLowerCase() !== track.event().toLowerCase()) return;
-    var id = mapping.value.conversionId ||  self.options.conversionId;  // customer can either specify one global conversion id or one per  mapping
-
-    // Fire conversion tag
-    if (mapping.value.label !== '') {
-      delete props.revenue;
-    
-      window.google_trackConversion({
-        google_conversion_id: id,
-        google_custom_params: props,
-        google_conversion_language: 'en',
-        google_conversion_format: '3',
-        google_conversion_color: 'ffffff',
-        google_conversion_label: mapping.value.label,
-        google_conversion_value: revenue,
-        google_remarketing_only: false // ensure this is a conversion tag
-      });
-    }
-
-    // Fire remarketing tag
-    if (mapping.value.remarketing) {
-      window.google_trackConversion({
-        google_conversion_id: id,
-        google_custom_params: props, // do not send PII here!
-        google_remarketing_only: true // ensure this is a remarketing tag
-      });
+    if (mapping.value) {
+      if (mapping.value.eventName.toLowerCase() !== track.event().toLowerCase()) return;
+      var id = mapping.value.conversionId ||  self.options.conversionId;  // customer can either specify one global conversion id or one per  mapping
+  
+      // Fire conversion tag
+      if (mapping.value.label !== '') {
+        delete props.revenue;
+      
+        window.google_trackConversion({
+          google_conversion_id: id,
+          google_custom_params: props,
+          google_conversion_language: 'en',
+          google_conversion_format: '3',
+          google_conversion_color: 'ffffff',
+          google_conversion_label: mapping.value.label,
+          google_conversion_value: revenue,
+          google_remarketing_only: false // ensure this is a conversion tag
+        });
+      }
+  
+      // Fire remarketing tag
+      if (mapping.value.remarketing) {
+        window.google_trackConversion({
+          google_conversion_id: id,
+          google_custom_params: props, // do not send PII here!
+          google_remarketing_only: true // ensure this is a remarketing tag
+        });
+      }
+    } else {
+      if (mapping.eventName.toLowerCase() !== track.event().toLowerCase()) return;
+      id = mapping.conversionId ||  self.options.conversionId;  // customer can either specify one global conversion id or one per  mapping
+  
+      // Fire conversion tag
+      if (mapping.label !== '') {
+        delete props.revenue;
+      
+        window.google_trackConversion({
+          google_conversion_id: id,
+          google_custom_params: props,
+          google_conversion_language: 'en',
+          google_conversion_format: '3',
+          google_conversion_color: 'ffffff',
+          google_conversion_label: mapping.label,
+          google_conversion_value: revenue,
+          google_remarketing_only: false // ensure this is a conversion tag
+        });
+      }
+  
+      // Fire remarketing tag
+      if (mapping.remarketing) {
+        window.google_trackConversion({
+          google_conversion_id: id,
+          google_custom_params: props, // do not send PII here!
+          google_remarketing_only: true // ensure this is a remarketing tag
+        });
+      }
     }
   });
 };
@@ -5349,8 +5382,9 @@ var isObject = require('isobject');
 var Atatus = module.exports = integration('Atatus')
   .global('atatus')
   .option('apiKey', '')
-  .option('enableSourcemap', false)
   .option('disableAjaxMonitoring', false)
+  .option('allowedDomains', [])
+  .option('enableOffline', false)
   .tag('<script src="//dmc1acwvwny3.cloudfront.net/atatus.js">');
 
 /**
@@ -5366,13 +5400,19 @@ Atatus.prototype.initialize = function() {
 
   this.load(function() {
     var configOptions = {
-      enableSourcemap: self.options.enableSourcemap,
       disableAjaxMonitoring: self.options.disableAjaxMonitoring
     };
 
     // Configure Atatus and install default handler to capture uncaught
     // exceptions
     window.atatus.config(self.options.apiKey, configOptions).install();
+
+    // Set allowed domains and enable offline
+    if (Array.isArray(self.options.allowedDomains) && self.options.allowedDomains.length > 0) {
+      window.atatus.setAllowedDomains(self.options.allowedDomains);
+    }
+    window.atatus.enableOffline(self.options.enableOffline);
+
     self.ready();
   });
 };
@@ -5396,7 +5436,16 @@ Atatus.prototype.loaded = function() {
  */
 
 Atatus.prototype.identify = function(identify) {
-  window.atatus.setCustomData({ person: identify.traits() });
+  var uid = identify.userId();
+  var traits = identify.traits() || {};
+  var email = traits.email;
+  var name = traits.name;
+
+  if (uid) {
+    window.atatus.setUser(uid, email, name);
+  }
+
+  window.atatus.setCustomData(traits);
 };
 
 },{"@segment/analytics.js-integration":61,"isobject":623}],61:[function(require,module,exports){
@@ -31610,7 +31659,7 @@ module.exports={
     "segment",
     "segment.io"
   ],
-  "main": "analytics.js",
+  "main": "sriracha.js",
   "scripts": {
     "build": "make build",
     "clean": "make clean",

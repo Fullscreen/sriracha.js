@@ -1,4 +1,4 @@
-# Analytics.js
+# Sriracha.js
 
 Analytics.js makes it easy to collect customer data and send it to many different tools using a single, unified API.
 
@@ -8,16 +8,16 @@ For our mobile and server-side data collection libraries, check out our [librari
 
 ## Documentation
 
-First, read the [Analytics.js QuickStart], which contains installation instructions and a brief overview of what Analytics.js does and how it works.
+First, read the [Sriracha.js QuickStart], which contains installation instructions and a brief overview of what Sriracha.js does and how it works.
 
-For more detail on the Analytics.js API, check out the [Analytics.js Library Reference].
+For more detail on the Sriracha.js API, check out the [Sriracha.js Library Reference].
 
 
 ## Contributing
 
-This repository houses a pre-built, open-source version of analytics.js. The core logic of analytics.js is broken out into individual repositories:
+This repository houses a pre-built, open-source version of sriracha.js. The core logic of sriracha.js is broken out into individual repositories:
 
-- To report an issue with analytics.js itself, head over to [analytics.js-core][], where the core analytics.js logic is maintained.
+- To report an issue with sriracha.js itself, head over to [analytics.js-core][], where the core sriracha.js logic is maintained.
 - To report an issue with an integration. head over to the [analytics.js-integrations][] organization, where we keep each integration in its own repository.
 
 If you're not sure where to open an issue, feel free to open an issue against this repository or email <friends@segment.com> and we'll help point you in the right direction.

@@ -26,7 +26,7 @@ install: node_modules
 
 # Remove temporary files and build artifacts.
 clean:
-	rm -rf *.log analytics.js analytics.min.js
+	rm -rf *.log sriracha.js sriracha.min.js
 .PHONY: clean
 
 # Remove temporary files, build artifacts, and vendor dependencies.
@@ -34,16 +34,16 @@ distclean: clean
 	rm -rf node_modules
 .PHONY: distclean
 
-# Build analytics.js.
-analytics.js: install $(SRC) package.json
-	@$(BROWSERIFY) lib/index.js --standalone analytics > analytics.js
+# Build sriracha.js.
+sriracha.js: install $(SRC) package.json
+	@$(BROWSERIFY) lib/index.js --standalone sriracha > sriracha.js
 
-# Build minified analytics.js.
-analytics.min.js: analytics.js
+# Build minified sriracha.js.
+sriracha.min.js: sriracha.js
 	@$(UGLIFYJS) $< --output $@
 
 # Build shortcut.
-build: analytics.min.js
+build: sriracha.min.js
 .PHONY: build
 
 # Lint JavaScript source files.

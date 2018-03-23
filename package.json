@@ -9,7 +9,7 @@
     "segment",
     "segment.io"
   ],
-  "main": "sriracha.js",
+  "main": "analytics.js",
   "scripts": {
     "build": "make build",
     "clean": "make clean",
